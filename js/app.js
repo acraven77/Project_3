@@ -31,7 +31,8 @@ Functions
 //This function hides the error messages and the "other" job input. I wasn't
 //sure if we were supposed to add the HTML for the error messages dynamically
 //or statically to the index page. I figured this way at least if JS is
-//disabled then the errors will show and the other field.
+//disabled then the errors will show and the other field. I chose to create
+//error messages instead of highlight the field in red.
 function hideElements() {
   colorSel.style.display = "none";
   colorDiv.querySelector("label[for=color").style.display = "none";
