@@ -85,10 +85,13 @@
         <label><input type="checkbox" name="node"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>
         <label><input type="checkbox" name="build-tools"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
         <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
+        <span id="total">Total: $</span>
+        <span id="num"></span>
 
       </fieldset>
       <fieldset>
         <legend>Payment Info</legend>
+        <span id="payOptionError" class="error">Please select a payment option</span>
         <span id="ccError" class="error">Please enter a credit card number</span>
         <span id="validCcError" class="error">Numbers only please between 13 and 16 digits</span>
         <span id="zipError" class="error">Please enter a 5 digit Zip Code</span>

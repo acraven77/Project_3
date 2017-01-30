@@ -13,8 +13,8 @@ var mainForm = document.getElementsByTagName("form")[0];
 var actFieldSet = document.getElementsByClassName('activities')[0];
 var payFieldSet = mainForm.querySelector('fieldset:nth-of-type(4)');
 var otherJobField = document.getElementById('other-title');
-var paypalDiv = payFieldSet.children[8];
-var bitcoinDiv = payFieldSet.children[9];
+var paypalDiv = payFieldSet.children[9];
+var bitcoinDiv = payFieldSet.children[10];
 var ccNumber = document.getElementById('cc-num');
 var zipNumber = document.getElementById('zip');
 var cvvNumber = document.getElementById('cvv');
@@ -22,7 +22,8 @@ var email = document.getElementById('mail');
 var fullName = document.getElementById('name');
 var otherJobField = document.getElementById('other-title');
 var creditCardDiv = document.getElementById('credit-card');
-
+var total = document.getElementById('total');
+var num = document.getElementById('num');
 
 /* ================================================================
 Functions
@@ -36,6 +37,8 @@ Functions
 //error messages instead of highlight the field in red.
 function hideElements() {
   colorSel.style.display = "none";
+  total.style.display = "none";
+  num.style.display = "none";
   colorDiv.querySelector("label[for=color]").style.display = "none";
   otherJobField.style.display = 'none';
   document.getElementById('nameError').style.display = 'none';
@@ -45,6 +48,7 @@ function hideElements() {
   document.getElementById('designError').style.display = 'none';
   document.getElementById('activityError').style.display = 'none';
   document.getElementById('validCcError').style.display = 'none';
+  document.getElementById('payOptionError').style.display = 'none';
 }
 hideElements();
 
@@ -140,29 +144,22 @@ function activities() {
 //Function that will add the total span and total the cost of the classes
 //selected.
 var totalAmount = function() {
-  var total = document.getElementById('total');
-  var num = document.getElementById('num');
   var checkbox = mainForm.querySelectorAll('input[type=checkbox]');
 
-  if (!total) {
-    var total = document.createElement("span");
-    var num = document.createElement("span");
-    actFieldSet.appendChild(total);
-    actFieldSet.appendChild(num);
-    total.id = 'total';
-    total.innerText = 'Total: $';
-    num.id = 'num';
+  if (total.style.display) {
+    total.style.display = "";
+    num.style.display = "";
     num.innerHTML = parseInt(this.value);
 
   } else if (!this.checked) {
-      num.innerHTML = parseInt(num.innerHTML) - parseInt(this.value);
+    num.innerHTML = parseInt(num.innerHTML) - parseInt(this.value);
 
-    } else {
-      num.innerHTML = parseInt(num.innerHTML) + parseInt(this.value);
-    }
+  } else {
+    num.innerHTML = parseInt(num.innerHTML) + parseInt(this.value);
+  }
   if (parseInt(num.innerHTML) === 0) {
-      num.parentNode.removeChild(num);
-      total.parentNode.removeChild(total);
+    total.style.display = "none";
+    num.style.display = "none";
   }
 
   for (var i = 0; i < checkbox.length; i++) {
@@ -191,7 +188,7 @@ function bindCheckboxes(input, val) {
 
 //For loop that runs through each checkbox and send each one to get bound
 //with onchange.
-for (var i = 2; i < actFieldSet.children.length; i++) {
+for (var i = 2; i < (actFieldSet.children.length - 2); i++) {
   bindCheckboxes(actFieldSet.children[i], 100);
 }
 
@@ -223,6 +220,11 @@ function paymentInfo() {
     bitcoinDiv.style.display = '';
   } else {
     bitcoinDiv.style.display = 'none';
+  }
+  if (paySelect.querySelector('option[value=select_method]').selected) {
+    document.getElementById('payOptionError').style.display = '';
+  } else {
+    document.getElementById('payOptionError').style.display = 'none';
   }
 }
 
@@ -339,16 +341,16 @@ function validateOnSubmit() {
     document.getElementById('activityError').style.display = '';
     fieldError += 'field5';
   }
-  if (!ccNumber.value) {
+  if (!ccNumber.value && paySelect.querySelector('option[value=credit_card]').selected) {
     document.getElementById('ccError').style.display = '';
     document.getElementById('validCcError').style.display = 'none';
     fieldError += 'field6';
   }
-  if (!zipNumber.value) {
+  if (!zipNumber.value && paySelect.querySelector('option[value=credit_card]').selected) {
     document.getElementById('zipError').style.display = '';
     fieldError += 'field7';
   }
-  if (!cvvNumber.value) {
+  if (!cvvNumber.value && paySelect.querySelector('option[value=credit_card]').selected) {
     document.getElementById('cvvError').style.display = '';
     fieldError += 'field8';
   }
