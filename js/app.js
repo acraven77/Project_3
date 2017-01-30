@@ -14,14 +14,15 @@ var actFieldSet = document.getElementsByClassName('activities')[0];
 var payFieldSet = mainForm.querySelector('fieldset:nth-of-type(4)');
 var otherJobField = document.getElementById('other-title');
 var basicInfofieldset = document.getElementsByTagName("fieldset")[0];
-var paypalDiv = payFieldSet.children[7];
-var bitcoinDiv = payFieldSet.children[8];
+var paypalDiv = payFieldSet.children[8];
+var bitcoinDiv = payFieldSet.children[9];
 var ccNumber = document.getElementById('cc-num');
 var zipNumber = document.getElementById('zip');
 var cvvNumber = document.getElementById('cvv');
 var email = document.getElementById('mail');
 var fullName = document.getElementById('name');
 var otherJobField = document.getElementById('other-title');
+var creditCardDiv = document.getElementById('credit-card');
 
 
 /* ================================================================
@@ -40,9 +41,11 @@ function hideElements() {
   otherJobField.style.display = 'none';
   document.getElementById('nameError').style.display = 'none';
   document.getElementById('emailError').style.display = 'none';
+  document.getElementById('validEmailError').style.display = 'none';
   document.getElementById('jobError').style.display = 'none';
   document.getElementById('designError').style.display = 'none';
   document.getElementById('activityError').style.display = 'none';
+  document.getElementById('validCcError').style.display = 'none';
 }
 hideElements();
 
@@ -196,12 +199,21 @@ for (var i = 2; i < actFieldSet.children.length; i++) {
 
 //Function to hide or display payment info.
 function paymentInfo() {
-  var creditCardDiv = document.getElementById('credit-card');
 
   if (paySelect.querySelector('option[value=credit_card]').selected) {
     creditCardDiv.style.display = '';
+    ccNumber.value = '';
+    zipNumber.value = '';
+    cvvNumber.value = '';
+    document.getElementById('ccError').style.display = '';
+    document.getElementById('zipError').style.display = '';
+    document.getElementById('cvvError').style.display = '';
   } else {
     creditCardDiv.style.display = 'none';
+    document.getElementById('ccError').style.display = 'none';
+    document.getElementById('validCcError').style.display = 'none';
+    document.getElementById('zipError').style.display = 'none';
+    document.getElementById('cvvError').style.display = 'none';
   }
   if (paySelect.querySelector('option[value=paypal]').selected) {
     paypalDiv.style.display = '';
@@ -234,22 +246,29 @@ var nameEmailValidate = function() {
     document.getElementById('nameError').style.display = '';
     }
   if (email.value.includes('@') && email.value.includes('.')) {
-    document.getElementById('emailError').style.display = 'none';
+    document.getElementById('validEmailError').style.display = 'none';
   } else if (!email.value.includes('@') || !email.value.includes('.')) {
-      document.getElementById('emailError').style.display = '';
+      document.getElementById('validEmailError').style.display = '';
+      document.getElementById('emailError').style.display = 'none';
     }
 }
 
 
 //Function to auto validate credit card fields and hide or display errors.
+//This function does not check to see if it is a valid credit card number (I
+//wasn't sure if that was a requirement) it just checks if it is a number and
+//it's between 13 - 16.
 var ccValidate = function() {
 
   if (isNaN(ccNumber.value)) {
-    document.getElementById('ccError').style.display = '';
+    document.getElementById('ccError').style.display = 'none';
+    document.getElementById('validCcError').style.display = '';
   } else if (ccNumber.value.length < 13 || ccNumber.value.length > 16) {
-      document.getElementById('ccError').style.display = '';
+      document.getElementById('ccError').style.display = 'none';
+      document.getElementById('validCcError').style.display = '';
   } else {
       document.getElementById('ccError').style.display = 'none';
+      document.getElementById('validCcError').style.display = 'none';
   }
   if (isNaN(zipNumber.value)) {
     document.getElementById('zipError').style.display = '';
@@ -296,6 +315,7 @@ function validateOnSubmit() {
   }
   if (!email.value) {
     document.getElementById('emailError').style.display = '';
+    document.getElementById('validEmailError').style.display = 'none';
     fieldError += 'field2';
   }
   if (jobRole === 'job-role') {
@@ -317,6 +337,7 @@ function validateOnSubmit() {
   }
   if (!ccNumber.value) {
     document.getElementById('ccError').style.display = '';
+    document.getElementById('validCcError').style.display = 'none';
     fieldError += 'field6';
   }
   if (!zipNumber.value) {
@@ -327,7 +348,7 @@ function validateOnSubmit() {
     document.getElementById('cvvError').style.display = '';
     fieldError += 'field8';
   }
-  if (fieldError.length > 0 || checkboxError.length > 0) {
+  if (fieldError.length > 0 || checkboxError.length === 0) {
   return false;
   }
 }
