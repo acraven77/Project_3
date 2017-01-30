@@ -1,4 +1,5 @@
 //I wanted to use pure vanilla JavaScript for this project.
+//I went for all 3 exceeds expectations
 
 
 /* ================================================================
