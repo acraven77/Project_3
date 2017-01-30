@@ -13,7 +13,6 @@ var mainForm = document.getElementsByTagName("form")[0];
 var actFieldSet = document.getElementsByClassName('activities')[0];
 var payFieldSet = mainForm.querySelector('fieldset:nth-of-type(4)');
 var otherJobField = document.getElementById('other-title');
-var basicInfofieldset = document.getElementsByTagName("fieldset")[0];
 var paypalDiv = payFieldSet.children[8];
 var bitcoinDiv = payFieldSet.children[9];
 var ccNumber = document.getElementById('cc-num');
@@ -37,7 +36,7 @@ Functions
 //error messages instead of highlight the field in red.
 function hideElements() {
   colorSel.style.display = "none";
-  colorDiv.querySelector("label[for=color").style.display = "none";
+  colorDiv.querySelector("label[for=color]").style.display = "none";
   otherJobField.style.display = 'none';
   document.getElementById('nameError').style.display = 'none';
   document.getElementById('emailError').style.display = 'none';
@@ -72,7 +71,7 @@ function shirtDesign() {
   var design = document.getElementById('design').value;
 
   colorSel.style.display = "";
-  colorDiv.querySelector("label[for=color").style.display = "";
+  colorDiv.querySelector("label[for=color]").style.display = "";
 
   if (design === "heart js") {
     for (var i = 3; i <= 5; i++) {
@@ -94,7 +93,7 @@ function shirtDesign() {
 
     } else if (design === "select") {
         colorSel.style.display = "none";
-        colorDiv.querySelector("label[for=color").style.display = "none";
+        colorDiv.querySelector("label[for=color]").style.display = "none";
     }
   if (design === "select") {
     document.getElementById('designError').style.display = '';
@@ -107,33 +106,33 @@ function shirtDesign() {
 //Function that disables other classes that conflict with selected.
 function activities() {
 
-  if (mainForm.querySelector('input[name=js-frameworks').checked) {
-    mainForm.querySelector('input[name=express').disabled = true;
-    mainForm.querySelector('input[name=express').parentNode.style.color = "slategray";
-  } else if (!mainForm.querySelector('input[name=js-frameworks').checked) {
-      mainForm.querySelector('input[name=express').disabled = false;
-      mainForm.querySelector('input[name=express').parentNode.style.color = "#000";
+  if (mainForm.querySelector('input[name=js-frameworks]').checked) {
+    mainForm.querySelector('input[name=express]').disabled = true;
+    mainForm.querySelector('input[name=express]').parentNode.style.color = "slategray";
+  } else if (!mainForm.querySelector('input[name=js-frameworks]').checked) {
+      mainForm.querySelector('input[name=express]').disabled = false;
+      mainForm.querySelector('input[name=express]').parentNode.style.color = "#000";
   }
-  if (mainForm.querySelector('input[name=express').checked) {
-    mainForm.querySelector('input[name=js-frameworks').disabled = true;
-    mainForm.querySelector('input[name=js-frameworks').parentNode.style.color = "slategray";
-  } else if (!mainForm.querySelector('input[name=express').checked) {
-      mainForm.querySelector('input[name=js-frameworks').disabled = false;
-      mainForm.querySelector('input[name=js-frameworks').parentNode.style.color = "#000";
+  if (mainForm.querySelector('input[name=express]').checked) {
+    mainForm.querySelector('input[name=js-frameworks]').disabled = true;
+    mainForm.querySelector('input[name=js-frameworks]').parentNode.style.color = "slategray";
+  } else if (!mainForm.querySelector('input[name=express]').checked) {
+      mainForm.querySelector('input[name=js-frameworks]').disabled = false;
+      mainForm.querySelector('input[name=js-frameworks]').parentNode.style.color = "#000";
   }
-  if (mainForm.querySelector('input[name=js-libs').checked) {
-    mainForm.querySelector('input[name=node').disabled = true;
-    mainForm.querySelector('input[name=node').parentNode.style.color = "slategray";
-  } else if (!mainForm.querySelector('input[name=js-libs').checked) {
-      mainForm.querySelector('input[name=node').disabled = false;
-      mainForm.querySelector('input[name=node').parentNode.style.color = "#000";
+  if (mainForm.querySelector('input[name=js-libs]').checked) {
+    mainForm.querySelector('input[name=node]').disabled = true;
+    mainForm.querySelector('input[name=node]').parentNode.style.color = "slategray";
+  } else if (!mainForm.querySelector('input[name=js-libs]').checked) {
+      mainForm.querySelector('input[name=node]').disabled = false;
+      mainForm.querySelector('input[name=node]').parentNode.style.color = "#000";
   }
-  if (mainForm.querySelector('input[name=node').checked) {
-    mainForm.querySelector('input[name=js-libs').disabled = true;
-    mainForm.querySelector('input[name=js-libs').parentNode.style.color = "slategray";
-  } else if (!mainForm.querySelector('input[name=node').checked) {
-      mainForm.querySelector('input[name=js-libs').disabled = false;
-      mainForm.querySelector('input[name=js-libs').parentNode.style.color = "#000";
+  if (mainForm.querySelector('input[name=node]').checked) {
+    mainForm.querySelector('input[name=js-libs]').disabled = true;
+    mainForm.querySelector('input[name=js-libs]').parentNode.style.color = "slategray";
+  } else if (!mainForm.querySelector('input[name=node]').checked) {
+      mainForm.querySelector('input[name=js-libs]').disabled = false;
+      mainForm.querySelector('input[name=js-libs]').parentNode.style.color = "#000";
   }
 }
 
@@ -174,7 +173,7 @@ var totalAmount = function() {
         document.getElementById('activityError').style.display = '';
       }
   }
-}
+};
 
 
 //This function binds an "onchange" method and value to each checkbox.
@@ -193,7 +192,7 @@ function bindCheckboxes(input, val) {
 //For loop that runs through each checkbox and send each one to get bound
 //with onchange.
 for (var i = 2; i < actFieldSet.children.length; i++) {
-  bindCheckboxes(actFieldSet.children[i], 100)
+  bindCheckboxes(actFieldSet.children[i], 100);
 }
 
 
@@ -237,21 +236,27 @@ function hidePayOptions() {
 hidePayOptions();
 
 
-//Function to auto validate email and name fields and hide or display errors.
-var nameEmailValidate = function() {
+//Function to auto validate email field and hide or display errors.
+var emailValidate = function() {
 
-  if (fullName.value) {
-    document.getElementById('nameError').style.display = 'none';
-  } else if (!name.value) {
-    document.getElementById('nameError').style.display = '';
-    }
   if (email.value.includes('@') && email.value.includes('.')) {
     document.getElementById('validEmailError').style.display = 'none';
   } else if (!email.value.includes('@') || !email.value.includes('.')) {
       document.getElementById('validEmailError').style.display = '';
       document.getElementById('emailError').style.display = 'none';
     }
-}
+};
+
+
+//Function to auto validate name field and hide or display errors.
+var nameValidate = function() {
+
+  if (fullName.value) {
+    document.getElementById('nameError').style.display = 'none';
+  } else if (!fullName.value) {
+    document.getElementById('nameError').style.display = '';
+    }
+};
 
 
 //Function to auto validate credit card fields and hide or display errors.
@@ -284,7 +289,7 @@ var ccValidate = function() {
   } else {
       document.getElementById('cvvError').style.display = 'none';
   }
-}
+};
 
 
 //Function to bind oninput method to credit card, name and email fields.
@@ -292,8 +297,8 @@ function bindInputs() {
   ccNumber.oninput = ccValidate;
   zipNumber.oninput = ccValidate;
   cvvNumber.oninput = ccValidate;
-  email.oninput = nameEmailValidate;
-  fullName.oninput = nameEmailValidate;
+  email.oninput = emailValidate;
+  fullName.oninput = nameValidate;
 }
 bindInputs();
 
@@ -302,14 +307,13 @@ bindInputs();
 //a section or field is not filled out. I used a variable to keep track if
 //each field has a value or not.
 function validateOnSubmit() {
-  var name = document.getElementById('name');
   var jobRole = document.getElementById('title').value;
   var design = document.getElementById('design').value;
   var checkbox = mainForm.querySelectorAll('input[type=checkbox]');
   var fieldError = '';
   var checkboxError = '';
 
-  if (!name.value) {
+  if (!fullName.value) {
     document.getElementById('nameError').style.display = '';
     fieldError += 'field1';
   }
@@ -356,4 +360,4 @@ function validateOnSubmit() {
 //This runs after page loads and focuses on the name input.
 window.onload = function() {
   document.getElementById('name').focus();
-}
+};
