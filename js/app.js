@@ -42,9 +42,6 @@ function hideElements() {
   document.getElementById('jobError').style.display = 'none';
   document.getElementById('designError').style.display = 'none';
   document.getElementById('activityError').style.display = 'none';
-  document.getElementById('ccError').style.display = 'none';
-  document.getElementById('zipError').style.display = 'none';
-  document.getElementById('cvvError').style.display = 'none';
 }
 hideElements();
 
@@ -246,20 +243,26 @@ var nameEmailValidate = function() {
 //Function to auto validate credit card fields and hide or display errors.
 var ccValidate = function() {
 
-  if (ccNumber.value.length >= 13 && ccNumber.value.length <= 16) {
-    document.getElementById('ccError').style.display = 'none';
-  } else if (ccNumber.value.length < 16 || ccNumber.value.length > 16) {
+  if (isNaN(ccNumber.value)) {
+    document.getElementById('ccError').style.display = '';
+  } else if (ccNumber.value.length < 13 || ccNumber.value.length > 16) {
       document.getElementById('ccError').style.display = '';
-  }
-  if (zipNumber.value.length === 5) {
-      document.getElementById('zipError').style.display = 'none';
   } else {
+      document.getElementById('ccError').style.display = 'none';
+  }
+  if (isNaN(zipNumber.value)) {
+    document.getElementById('zipError').style.display = '';
+  } else if (zipNumber.value.length !== 5) {
       document.getElementById('zipError').style.display = '';
-  }
-  if (cvvNumber.value.length === 3) {
-      document.getElementById('cvvError').style.display = 'none';
   } else {
+      document.getElementById('zipError').style.display = 'none';
+  }
+  if (isNaN(cvvNumber.value)) {
+    document.getElementById('cvvError').style.display = '';
+  } else if (cvvNumber.value.length !== 3) {
       document.getElementById('cvvError').style.display = '';
+  } else {
+      document.getElementById('cvvError').style.display = 'none';
   }
 }
 
